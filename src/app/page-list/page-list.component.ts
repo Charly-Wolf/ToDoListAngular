@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class PageListComponent {
 
+  public toDoShow: boolean;
+  public toDoDoneShow: boolean;
+
+  constructor() { 
+    this.toDoShow = true;
+    this.toDoDoneShow = false;
+  }
+
+  ngOnInit() {
+
+  }
 }
