@@ -8,7 +8,7 @@
             <img *ngIf="toDo$.status" (click)="changeCheck($event)" src="./assets/svg/checkbox-done.svg">
         </div>
         <div class="todo-content-titel">
-            <input (blur)="changeLabel($event)" type="text" [(ngModel)]="toDo$.label" placeholder="Name des ToDo-Punktes">
+            <input [disabled]="toDo$.status" (blur)="changeLabel($event)" type="text" [(ngModel)]="toDo$.label" placeholder="Name des ToDo-Punktes">
         </div>
     </div>
     <div class="delete" (click)="deleteToDo($event)">
