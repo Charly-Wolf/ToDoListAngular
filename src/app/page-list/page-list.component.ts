@@ -17,20 +17,7 @@ export class PageListComponent {
   constructor() { 
     this.toDoShow = true;
     this.toDoDoneShow = false;
-    this.$todos = [
-      {
-        id: 0,
-        label: 'Website erstellen',
-        status: false,
-        position: 1
-      },
-      {
-        id: 1,
-        label: 'Design entwickeln',
-        status: false,
-        position: 2
-      }
-    ];
+    this.$todos = [];
     this.$todosdone = [];
   }
 
