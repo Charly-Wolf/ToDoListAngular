@@ -29,11 +29,15 @@ export class TemplateTodoComponent {
 
   public changeCheck(event?: any): void {
     this.toDo$.status = !this.toDo$.status;
-    const eventObject: Eventping = {
-      label: 'check',
-      object: this.toDo$
-    };
-    this.ping.emit(eventObject);
+    this._dataService.putToDo(this.toDo$).subscribe((data: ToDo) => {
+      const eventObject: Eventping = {
+        label: 'check',
+        object: this.toDo$
+      };
+      this.ping.emit(eventObject);
+    }, error => {
+      console.log(`%cERROR: ${error.message}`, `color: red; font-size: 12px;`);
+    });
   }
 
   public changeLabel(event?: any): void {

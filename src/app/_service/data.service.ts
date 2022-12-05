@@ -46,4 +46,14 @@ export class DataService {
     return this._http.delete<ToDo>(`${this.serverUrl}/todos/${object.id}`, httpOptions);
   }
 
+  // PUT
+  public putToDo(object: ToDo): Observable<ToDo> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this._http.put<ToDo>(`${this.serverUrl}/todos/${object.id}`, object, httpOptions);
+  }
+
 }

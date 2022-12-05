@@ -1,16 +1,10 @@
 {
   "todos": [
     {
-      "id": 0,
-      "label": "Website erstellen",
+      "label": "workout",
       "status": false,
-      "position": 1
-    },
-    {
-      "label": "Rechnung erstellen",
-      "status": false,
-      "position": "3",
-      "id": 2
+      "position": 2,
+      "id": 4
     }
   ]
 }

@@ -29,9 +29,14 @@ export class PageListComponent {
   public loadData(): void {
     this.$todosdone = [];
     this.$todos = [];
-    this._dataService.getToDo().subscribe(
-      (data: ToDo[]) => {
-        this.$todos = data;
+    this._dataService.getToDo().subscribe((data: ToDo[]) => {
+        data.forEach((toDo: ToDo) => {
+          if (toDo.status === true) {
+            this.$todosdone.push(toDo);
+          } else {
+            this.$todos.push(toDo);
+          }
+        });
       },
       (error) => {
         console.log(`%cERROR: ${error.message}`, `color: red; font-size: 12px`);
@@ -41,13 +46,21 @@ export class PageListComponent {
 
   public create(event: ToDo): void {
     event.position = this.$todos.length + 1;
-    this._dataService.postToDo(event).subscribe((data: ToDo) => {
-      console.log(`%cSUC: "${data.label}" wurde erfolgreich erstellt.`, `color: green`);
-      this.$todos.push(data);
-      
-    }, error => {
-      console.log(`%cERROR: ${error.message}`, `color: red; font-size: 12px;`);
-    })
+    this._dataService.postToDo(event).subscribe(
+      (data: ToDo) => {
+        console.log(
+          `%cSUC: "${data.label}" wurde erfolgreich erstellt.`,
+          `color: green`
+        );
+        this.$todos.push(data);
+      },
+      (error) => {
+        console.log(
+          `%cERROR: ${error.message}`,
+          `color: red; font-size: 12px;`
+        );
+      }
+    );
   }
 
   public update(event: Eventping): void {
