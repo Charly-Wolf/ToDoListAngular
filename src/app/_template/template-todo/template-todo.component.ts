@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Eventping } from 'src/app/_interface/eventping';
 import { ToDo } from '../../_interface/todo'
+import { DataService } from 'src/app/_service/data.service';
 
 @Component({
   selector: 'app-template-todo',
@@ -12,7 +13,9 @@ export class TemplateTodoComponent {
   @Input() toDo$: ToDo;
   @Output() ping: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
+  constructor(
+    public _dataService: DataService
+  ) {
     this.toDo$ = {
       id: 1,
       label: 'Beispiel',
@@ -42,10 +45,14 @@ export class TemplateTodoComponent {
   }
 
   public deleteToDo(event?: any): void {
-    const eventObject: Eventping = {
-      label: 'delete',
-      object: this.toDo$
-    };
-    this.ping.emit(eventObject);
+    this._dataService.deleteToDo(this.toDo$).subscribe((data: ToDo) => {
+      const eventObject: Eventping = {
+        label: 'delete',
+        object: this.toDo$
+      };
+      this.ping.emit(eventObject);
+    }, error => {
+      console.log(`%cERROR: ${error.message}`, `color: red; font-size: 12px;`);
+    })
   }
 }
