@@ -26,4 +26,14 @@ export class DataService {
     return this._http.get<ToDo[]>(`${this.serverUrl}/todos`, httpOptions);
   }
 
+  // POST
+  public postToDo(object: ToDo): Observable<ToDo> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this._http.post<ToDo>(`${this.serverUrl}/todo`, object, httpOptions);
+  }
+
 }

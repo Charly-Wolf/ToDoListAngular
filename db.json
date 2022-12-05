@@ -8,7 +8,7 @@
     },
     {
       "label": "Rechnung erstellen",
-      "status": "false",
+      "status": false,
       "position": "3",
       "id": 2
     }
