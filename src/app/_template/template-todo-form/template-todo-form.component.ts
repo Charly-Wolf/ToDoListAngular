@@ -14,7 +14,6 @@ export class TemplateTodoFormComponent {
 
   constructor() {
     this.toDo$ = {
-      id: undefined,
       label: undefined,
       status: false,
       position: undefined
@@ -29,7 +28,6 @@ export class TemplateTodoFormComponent {
     this.ping.emit(this.toDo$);
     //Reset object after a toDo was created and sent to the server
     this.toDo$ = {
-      id: undefined,
       label: undefined,
       status: false,
       position: undefined

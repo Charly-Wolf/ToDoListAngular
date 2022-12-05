@@ -33,7 +33,7 @@ export class DataService {
         'Content-Type': 'application/json'
       })
     };
-    return this._http.post<ToDo>(`${this.serverUrl}/todo`, object, httpOptions);
+    return this._http.post<ToDo>(`${this.serverUrl}/todos`, object, httpOptions);
   }
 
 }
