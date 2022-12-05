@@ -1,28 +1,42 @@
 import { Component } from '@angular/core';
 import { ToDo } from '../_interface/todo';
 import { Eventping } from '../_interface/eventping';
+import { DataService } from '../_service/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
-  styleUrls: ['./page-list.component.sass']
+  styleUrls: ['./page-list.component.sass'],
 })
 export class PageListComponent {
-
   public toDoShow: boolean;
   public toDoDoneShow: boolean;
   public $todos: ToDo[];
   public $todosdone: ToDo[];
 
-  constructor() { 
+  constructor(public _dataService: DataService) {
     this.toDoShow = true;
     this.toDoDoneShow = false;
     this.$todos = [];
     this.$todosdone = [];
+    this.loadData();
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  // Inital data (empty)
+  public loadData(): void {
+    this.$todosdone = [];
+    this.$todos = [];
+    this._dataService.getToDo().subscribe(
+      (data: ToDo[]) => {
+        this.$todos = data;
+      },
+      (error) => {
+        console.log(`%cERROR: ${error.message}`, `color: red; font-size: 12px`);
+      }
+    );
   }
 
   public create(event: ToDo): void {
@@ -32,7 +46,10 @@ export class PageListComponent {
 
   public update(event: Eventping): void {
     if (event.label === 'check') {
-      console.log(`%c"${event.label}-Event" wurde getriggert. `, `color: green;`)
+      console.log(
+        `%c"${event.label}-Event" wurde getriggert. `,
+        `color: green;`
+      );
       if (!event.object.status) {
         this.$todosdone.splice(this.$todosdone.indexOf(event.object), 1);
         this.$todos.push(event.object);
@@ -42,7 +59,10 @@ export class PageListComponent {
       }
     }
     if (event.label === 'delete') {
-      console.log(`%c"${event.label}-Event" wurde getriggert. `, `color: green`);
+      console.log(
+        `%c"${event.label}-Event" wurde getriggert. `,
+        `color: green`
+      );
       if (event.object.status) {
         this.$todosdone.splice(this.$todosdone.indexOf(event.object), 1);
       } else {
@@ -50,7 +70,10 @@ export class PageListComponent {
       }
     }
     if (event.label === 'label') {
-      console.log(`%c"${event.label}-Event" wurde getriggert. `, `color: green`);
+      console.log(
+        `%c"${event.label}-Event" wurde getriggert. `,
+        `color: green`
+      );
       if (event.object.status) {
         this.$todosdone.forEach((toDo: ToDo) => {
           if (toDo.id === event.object.id) {
